@@ -1,12 +1,11 @@
-function Cta() {
+function Mode() {
   return (
     <p>
-      Try changing&nbsp;
+      Change 
       <span className="code">value</span>
-      &nbsp;in&nbsp;
       <span className="code">SimpleStorage</span>.
     </p>
   );
 }
 
-export default Cta;
+export default Mode;
