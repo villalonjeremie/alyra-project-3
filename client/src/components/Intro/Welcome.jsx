@@ -1,10 +1,7 @@
 function Welcome() {
   return (
     <div className="welcome">
-      <h1> Welcome to the Voting Dapp !</h1>
-      <p>
-        Two sections are available : Admin / Voters interface
-      </p>
+      <h1> Voting Dapp </h1>
     </div>
   );
 }

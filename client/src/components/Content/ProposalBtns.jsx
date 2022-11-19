@@ -6,15 +6,31 @@ function ProposalBtns({ setAllProposals }) {
   const [inputString, setStringValue] = useState("");
 
   const handleStringChange = e => {
-        setStringValue(e.target.value);
+    setStringValue(e.target.value);
   };
 
   useEffect(() => {
     (async function () {
-          const values = await contract.methods.getProposals().call({ from: accounts[0] });
-          setAllProposals(values);
+        const proposals =  await getProposals();
+        setAllProposals(proposals);
     })();
   }, [contract, accounts, setAllProposals]);
+
+  const getProposals = async() => {
+    var proposals = [], i = 0, error = false;
+      while ( error === false ) {
+        ++i;
+        try {
+          const proposal = await contract.methods.getOneProposal(i).call({ from: accounts[0] });
+          proposals.push(proposal);
+        } catch (err) {
+          error = true;
+          break;
+        }
+      }   
+
+      return proposals;
+  }
 
   const writeProposal = async e => {
     if (e.target.tagName === "INPUT") {
@@ -27,8 +43,8 @@ function ProposalBtns({ setAllProposals }) {
 
     try {
       await contract.methods.addProposal(inputString).send({ from: accounts[0] });
-      const values = await contract.methods.getProposals().call({ from: accounts[0] });
-      setAllProposals(values);
+      const proposals = await getProposals();
+      setAllProposals(proposals);
     } catch (err) {
     const endIndex = err.message.search('error msg')
   

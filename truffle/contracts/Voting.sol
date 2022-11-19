@@ -55,11 +55,6 @@ contract Voting is Ownable {
     function getOneProposal(uint _id) external  view returns (Proposal memory) {
         return proposalsArray[_id];
     }
-
-    function getProposals() external  view returns (Proposal[] memory) {
-        return proposalsArray;
-    }
-
  
     // ::::::::::::: REGISTRATION ::::::::::::: // 
 
@@ -69,13 +64,13 @@ contract Voting is Ownable {
     
         voters[_addr].isRegistered = true;
         emit VoterRegistered(_addr);
-    }
+    }   
  
 
     // ::::::::::::: PROPOSAL ::::::::::::: // 
 
     function addProposal(string calldata _desc) external  {
-        require(workflowStatus == WorkflowStatus.ProposalsRegistrationStarted, 'Proposals are not allowed yet');
+        //require(workflowStatus == WorkflowStatus.ProposalsRegistrationStarted, 'Proposals are not allowed yet');
         require(keccak256(abi.encode(_desc)) != keccak256(abi.encode("")), 'Vous ne pouvez pas ne rien proposer'); // facultatif
         // voir que desc est different des autres
 
@@ -108,7 +103,7 @@ contract Voting is Ownable {
 
 
     function startProposalsRegistering() external  {
-        require(workflowStatus == WorkflowStatus.RegisteringVoters, 'Registering proposals cant be started now');
+        //require(workflowStatus == WorkflowStatus.RegisteringVoters, 'Registering proposals cant be started now');
         workflowStatus = WorkflowStatus.ProposalsRegistrationStarted;
         
         Proposal memory proposal;

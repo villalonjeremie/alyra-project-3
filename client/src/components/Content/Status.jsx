@@ -1,46 +1,56 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
  
 function Status({ status }) {
-  const spanEle = useRef(null);
-  const [EventValue, setEventValue] = useState("");
-  const [oldEvents, setOldEvents] = useState();
-  const { state: { contract } } = useEth();
-
+  const [previousStatus, setPreviousValue] = useState("");
+  const [newValue, setNewValue] = useState("");
+  const { state: { contract } } = useEth("");
+ 
   useEffect(() => {
     (async function () {
-       let oldEvents= await contract.getPastEvents('WorkflowStatusChange', {
-          fromBlock: 0,
-          toBlock: 'latest'
-        });
-        let oldies=[];
-        oldEvents.forEach(event => {
-            oldies.push(event.returnValues._val);
-        });
-        setOldEvents(oldies);
- 
         await contract.events.WorkflowStatusChange({fromBlock:"earliest"})
         .on('data', event => {
-          let lesevents = event.returnValues._val;
-          setEventValue(lesevents);
+          let previousStatus = event.returnValues.previousStatus;
+          let newStatus = event.returnValues.newStatus;
+          setPreviousValue(getStatusName(previousStatus));
+          setNewValue(getStatusName(newStatus));
+
         })          
         .on('changed', changed => console.log(changed))
         .on('error', err => console.log(err))
         .on('connected', str => console.log(str))
     })();
-  }, [contract])
+  }, [contract]);
+
+  const getStatusName = (idEnumStatus) => {
+    switch (idEnumStatus) {
+        case "0":
+          return "RegisteringVoters";
+        case "1":
+          return "ProposalsRegistrationStarted";
+        case "2":
+          return "ProposalsRegistrationEnded";
+        case "3":
+          return "VotingSessionStarted";
+        case "4":
+          return "VotingSessionEnded";
+        case "5":
+          return "VotesTallied";
+        default:
+          return "Undefined status";
+    }
+}
 
   return (
-    <code>
-      {` Status : `}
-      <span className="secondary-color" ref={spanEle}>
-        <strong>{status}</strong>
-      </span>
-
-     {`  Events arriving: `} {EventValue} {`
-    
-     Old events: `} {oldEvents}
-    </code>
+    <>
+    { newValue.length !== 0 &&  newValue.length !== 0 ?
+            <code>
+            {`  Status changed to : `} {newValue}
+           <br/>
+            {`  Old States : `} {previousStatus}
+          </code> : <></>
+    }
+  </>
   );
 }
 

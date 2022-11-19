@@ -11,13 +11,13 @@ function VoterBtns() {
   }
   };
 
-  const setVote = async () => {
+  const addVote = async () => {
     if (inputId === "") {
       alert("Please enter an Id to write.");
       return;
     }
     
-    await contract.methods.setVote(inputId).call({ from: accounts[0] });
+    await contract.methods.setVote(inputId).send({ from: accounts[0] });
   };
 
   return (
@@ -29,7 +29,7 @@ function VoterBtns() {
                 value={inputId}
                 onChange={handleIdChange}
             />
-            <button onClick={setVote} className="input-btn">
+            <button onClick={addVote} className="input-btn">
                 set Vote
             </button>
         </div>

@@ -16,6 +16,7 @@ function AddVoter() {
     }
 
     const infoAddVoter = await contract.methods.addVoter(inputAddress).send({ from: accounts[0] });
+    console.log(infoAddVoter);
     setInfoAddVoter(infoAddVoter);
   };
 
@@ -32,11 +33,10 @@ function AddVoter() {
                 add Voter
             </button>
 
-            {infoAddVoter ?
+            {
+            infoAddVoter.status === true ?
                 <code>
-                    <pre>Status : {String(infoAddVoter.status)} </pre>
-                    <pre>transactionHash : {String(infoAddVoter.transactionHash)}</pre>
-                    <pre>gasUsed : {String(infoAddVoter.gasUsed)}</pre>
+                    <pre> Voter added in blockchain </pre>
                 </code>  : <></>
             }
         </div>
