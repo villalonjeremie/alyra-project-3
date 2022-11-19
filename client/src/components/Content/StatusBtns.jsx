@@ -1,26 +1,37 @@
 import useEth from "../../contexts/EthContext/useEth";
 
-function ContractBtns({ setValue }) {
+function ContractBtns({ setStatus }) {
   const { state: { contract, accounts } } = useEth();
 
+  
   const startProposalsRegistering = async () => {
-    await contract.methods.startProposalsRegistering().call({ from: accounts[0] });
+    await contract.methods.startProposalsRegistering().send({ from: accounts[0] });
+    const value = await contract.methods.workflowStatus().call({ from: accounts[0] });
+    setStatus(value);
   };
 
   const endProposalsRegistering = async () => {
-    await contract.methods.endProposalsRegistering().call({ from: accounts[0] });
+    await contract.methods.endProposalsRegistering().send({ from: accounts[0] });
+    const value = await contract.methods.workflowStatus().call({ from: accounts[0] });
+    setStatus(value);
   };
 
   const startVotingSession = async () => {
-    await contract.methods.startVotingSession().call({ from: accounts[0] });
+    await contract.methods.startVotingSession().send({ from: accounts[0] });
+    const value = await contract.methods.workflowStatus().call({ from: accounts[0] });
+    setStatus(value);
   };
 
   const endVotingSession = async () => {
-    await contract.methods.endVotingSession().call({ from: accounts[0] });
+    await contract.methods.endVotingSession().send({ from: accounts[0] });
+    const value = await contract.methods.workflowStatus().call({ from: accounts[0] });
+    setStatus(value);
   };
 
   const tallyVotes = async () => {
-    await contract.methods.tallyVotes().call({ from: accounts[0] });
+    await contract.methods.tallyVotes().send({ from: accounts[0] });
+    const value = await contract.methods.workflowStatus().call({ from: accounts[0] });
+    setStatus(value);
   };
 
 

@@ -1,12 +1,12 @@
 import { useRef, useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
  
-function Status({ value }) {
+function Status({ status }) {
   const spanEle = useRef(null);
   const [EventValue, setEventValue] = useState("");
   const [oldEvents, setOldEvents] = useState();
   const { state: { contract } } = useEth();
- 
+
   useEffect(() => {
     (async function () {
        let oldEvents= await contract.getPastEvents('WorkflowStatusChange', {
@@ -29,14 +29,14 @@ function Status({ value }) {
         .on('connected', str => console.log(str))
     })();
   }, [contract])
- 
 
   return (
     <code>
       {` Status : `}
       <span className="secondary-color" ref={spanEle}>
-        <strong>{value}</strong>
+        <strong>{status}</strong>
       </span>
+
      {`  Events arriving: `} {EventValue} {`
     
      Old events: `} {oldEvents}
