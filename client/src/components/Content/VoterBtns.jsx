@@ -8,7 +8,7 @@ function VoterBtns() {
   const handleIdChange = e => {
     if (/^\d+$|^$/.test(e.target.value)) {
       setInputId(e.target.value);
-  }
+    }
   };
 
   const addVote = async () => {
@@ -17,7 +17,15 @@ function VoterBtns() {
       return;
     }
     
-    await contract.methods.setVote(inputId).send({ from: accounts[0] });
+    try {
+      await contract.methods.setVote(inputId).send({ from: accounts[0] });
+    } catch(err) {
+      const endIndex = err.message.search('error msg')
+
+      if (endIndex >= 0) {
+        throw err.message.substring(0, endIndex)
+      }
+    }
   };
 
   return (
@@ -30,7 +38,7 @@ function VoterBtns() {
                 onChange={handleIdChange}
             />
             <button onClick={addVote} className="input-btn">
-                set Vote
+                Vote
             </button>
         </div>
     </div>

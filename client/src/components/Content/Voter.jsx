@@ -18,7 +18,6 @@ function Voter() {
     })();
   }, [contract]);
  
-
   return (
     <>
     { eventValue > 0 ?

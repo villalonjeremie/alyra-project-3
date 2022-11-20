@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
 function ProposalBtns({ setAllProposals }) {
@@ -8,29 +8,6 @@ function ProposalBtns({ setAllProposals }) {
   const handleStringChange = e => {
     setStringValue(e.target.value);
   };
-
-  useEffect(() => {
-    (async function () {
-        const proposals =  await getProposals();
-        setAllProposals(proposals);
-    })();
-  }, [contract, accounts, setAllProposals]);
-
-  const getProposals = async() => {
-    var proposals = [], i = 0, error = false;
-      while ( error === false ) {
-        ++i;
-        try {
-          const proposal = await contract.methods.getOneProposal(i).call({ from: accounts[0] });
-          proposals.push(proposal);
-        } catch (err) {
-          error = true;
-          break;
-        }
-      }   
-
-      return proposals;
-  }
 
   const writeProposal = async e => {
     if (e.target.tagName === "INPUT") {
@@ -43,14 +20,25 @@ function ProposalBtns({ setAllProposals }) {
 
     try {
       await contract.methods.addProposal(inputString).send({ from: accounts[0] });
-      const proposals = await getProposals();
+      let proposals = [], i = 0, error = false;
+      while ( error === false ) {
+          ++i;
+          try {
+            const proposal = await contract.methods.getOneProposal(i).call({ from: accounts[0] });
+            console.log(proposal);
+            proposals.push(proposal);
+          } catch (err) {
+            error = true;
+            break;
+          }
+      }
       setAllProposals(proposals);
     } catch (err) {
-    const endIndex = err.message.search('error msg')
+      const endIndex = err.message.search('error msg')
   
-    if (endIndex >= 0) {
-      throw err.message.substring(0, endIndex)
-    }
+      if (endIndex >= 0) {
+        throw err.message.substring(0, endIndex)
+      }
   }
   };
 

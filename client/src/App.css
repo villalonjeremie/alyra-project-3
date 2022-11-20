@@ -87,6 +87,11 @@ hr {
 #App .container .welcome h1 {
   padding-top: 7.5rem;
   font-size: 2.6rem;
+  text-align: center;
+}
+
+#App .container .demo {
+  text-align: center;
 }
 
 #App .container .demo .contract-container {
@@ -135,9 +140,56 @@ hr {
 
 #App .container footer {
   padding-bottom: 7.5rem;
+  text-align: center;
 }
 
 #App .container footer a {
   display: inline-block;
   margin: 2rem 1rem 0 0;
 }
+
+#App .container .input-btn, #App .container button, footer a {
+  box-shadow:inset 0px 39px 0px -24px #e67a73;
+  background-color:#e4685d;
+  border-radius:4px;
+  border:1px solid #ffffff;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:15px;
+  padding:6px 15px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #b23e35;
+}
+#App .container .input-btn:hover {
+  background-color:#eb675e;
+}
+
+#App .container code {
+  background-color:#eb675e;
+  color : white;
+  text-shadow:0px 1px 0px #b23e35;
+
+}
+
+#App .container .input-btn:active {
+  position:relative;
+  top:1px;
+}
+
+#App .container .btns input {
+  padding: 5px;
+  font-size: 16px;
+  border-width: 1px;
+  border-color: #CCCCCC;
+  background-color: #FFFFFF;
+  color: #000000;
+  border-style: solid;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px rgba(66,66,66,.100);
+}
+#App .container .btns input:focus {
+  outline:none;
+}
+

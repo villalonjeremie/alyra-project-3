@@ -1,9 +1,9 @@
-import Welcome from "./Welcome";
+import Title from "./Title";
 
 function Intro() {
   return (
     <>
-      <Welcome />
+      <Title />
     </>
   );
 }

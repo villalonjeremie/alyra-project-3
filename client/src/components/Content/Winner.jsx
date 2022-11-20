@@ -1,25 +1,26 @@
-import { useEffect, useRef, useState } from "react";
+import {  useState, useEffect } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function Winner() {
-    const spanEle = useRef(null);
+function Winner( {winner} ) {
     const { state: { contract, accounts } } = useEth();
-    const [winner, setWinner] = useState("");
+    const [getWinner, setWinner] = useState("");
 
     useEffect(() => {
       (async function () {
-            const values = await contract.methods.winningProposalID().call({ from: accounts[0] });
-            setWinner(values);
+            const i = await contract.methods.winningProposalID().call({ from: accounts[0] });
+            const proposalWinner = await contract.methods.getOneProposal(i).call({ from: accounts[0] });
+            setWinner(proposalWinner);
       })();
     }, [contract, accounts, setWinner]);
   
 
     return (
-        <code><section></section>
-          {` Winner : `}
-          <span className="secondary-color" ref={spanEle}>
-            <strong>{winner}</strong>
-          </span>
+        <code>
+          {` Proposal Winner is : `}
+            {
+              winner ? 
+                <strong>{winner}</strong> : <strong>{getWinner}</strong>
+            }
         </code>
       );
   }

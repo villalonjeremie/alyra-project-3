@@ -1,4 +1,4 @@
-function Welcome() {
+function Title() {
   return (
     <div className="welcome">
       <h1> Voting Dapp </h1>
@@ -6,4 +6,4 @@ function Welcome() {
   );
 }
 
-export default Welcome;
+export default Title;

@@ -17,17 +17,36 @@ function GettersBtns({ setProposal, setAllProposals, setVoter, setWinner }) {
   };
 
   const getWinner = async () => { 
-    const winnerId = await contract.methods.winningProposalID().call({ from: accounts[0] });
-    setWinner(winnerId);
+    setProposal("");
+    setVoter("");
+    setAllProposals("");
+    const i = await contract.methods.winningProposalID().call({ from: accounts[0] });
+    const proposalWinner = await contract.methods.getOneProposal(i).call({ from: accounts[0] });
+    setWinner(proposalWinner);
    };
 
   const readAllProposal = async () => {
-    const values = await contract.methods.getProposals().call({ from: accounts[0] });
-    console.log(values);
-    setAllProposals(values);
+     setProposal("");
+     setVoter("");
+     setWinner("");
+      var proposals = [], i = 0, error = false;
+        while ( error === false ) {
+          ++i;
+          try {
+            const proposal = await contract.methods.getOneProposal(i).call({ from: accounts[0] });
+            proposals.push(proposal);
+          } catch (err) {
+            error = true;
+            break;
+          }
+        }
+    setAllProposals(proposals);
   };
 
   const readOneProposal = async () => {
+    setWinner("");
+    setVoter("");
+    setAllProposals("");
     if (inputId === "") {
         alert("Please enter an Id to write.");
         return;
@@ -38,6 +57,9 @@ function GettersBtns({ setProposal, setAllProposals, setVoter, setWinner }) {
   };
 
   const getVoter = async () => {
+    setProposal("");
+    setWinner("");
+    setAllProposals("");
     if (!web3.utils.isAddress(inputAddress)) {
       alert("invalid address")
     }
@@ -48,34 +70,40 @@ function GettersBtns({ setProposal, setAllProposals, setVoter, setWinner }) {
 
   return (
     <div className="btns">
-        <input
-            type="text"
-            placeholder="idProposal"
-            value={inputId}
-            onChange={handleIdChange}
-        />
-        <button onClick={readOneProposal} className="input-btn">
-            Get Proposal by Id
-        </button>
-        <button onClick={readAllProposal} className="input-btn">
-            Get Proposal All 
-        </button>
-        <input
+        <div className="btn-input">
+          <input
+              type="text"
+              placeholder="idProposal"
+              value={inputId}
+              onChange={handleIdChange}
+          />
+          <button onClick={readOneProposal} className="input-btn">
+              Get Proposal by Id
+          </button>
+          </div>
+          <div className="btn-input">
+          <input
             type="text"
             placeholder="address"
             value={inputAddress}
             onChange={handleAddressChange}
             />
-        <button onClick={getVoter} className="input-btn">
-            Get Voter
-        </button>
-        <div>
-        <div className="btns">
-            <button onClick={getWinner} className="input-btn">
+          <button onClick={getVoter} className="input-btn">
+              Get Voter
+          </button>
+        </div>
+        <br/>
+        <div className="btn">
+          <button onClick={readAllProposal} className="input-btn">
+              Get Proposal All 
+          </button>
+        <div/>
+        <div className="btn"></div>
+          <button onClick={getWinner} className="input-btn">
                 get Winner
             </button>
         </div>
-    </div>
+        <br/>
     </div>
   );
 }
