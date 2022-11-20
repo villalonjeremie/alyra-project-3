@@ -12,14 +12,14 @@ function Winner( {winner} ) {
             setWinner(proposalWinner);
       })();
     }, [contract, accounts, setWinner]);
-  
+
 
     return (
         <code>
           {` Proposal Winner is : `}
             {
               winner ? 
-                <strong>{winner}</strong> : <strong>{getWinner}</strong>
+                <strong>{winner.description}</strong> : <strong>{getWinner.description}</strong>
             }
         </code>
       );
