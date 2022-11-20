@@ -90,6 +90,10 @@ hr {
   text-align: center;
 }
 
+#App .container .welcome span {
+  text-align: center;
+}
+
 #App .container .demo {
   text-align: center;
 }
@@ -192,4 +196,3 @@ hr {
 #App .container .btns input:focus {
   outline:none;
 }
-
