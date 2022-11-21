@@ -14,8 +14,18 @@ function Getters({ proposal, proposals, voter, winner }) {
           }
           { proposals.length !== 0 ?
             <code>
-              <Proposals proposals={proposals} />
-            </code> : <></>
+                <div className="proposals">
+                <strong>Proposals : </strong>
+                {Object.values(proposals).map((value, index) => {
+                  return (
+                    <div key={index + 1} >
+                      <span> {index + 1}. {value.description}</span>
+                    </div>
+                  );
+                  })}
+                </div>
+            </code>
+            : <></>
           }
           { voter.length !== 0 ?
             <code>

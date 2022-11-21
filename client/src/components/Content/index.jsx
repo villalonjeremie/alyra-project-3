@@ -73,7 +73,7 @@ function Content() {
     }
     </div>;
 
-  return (
+  return ( 
     <div className="demo">
       {
         !state.artifact ? <NoticeNoArtifact /> :

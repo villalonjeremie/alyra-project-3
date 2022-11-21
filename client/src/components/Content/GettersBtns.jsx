@@ -35,11 +35,13 @@ function GettersBtns({ setProposal, setAllProposals, setVoter, setWinner }) {
           try {
             const proposal = await contract.methods.getOneProposal(i).call({ from: accounts[0] });
             proposals.push(proposal);
+            
           } catch (err) {
             error = true;
             break;
           }
         }
+        console.log(proposals);
     setAllProposals(proposals);
   };
 
