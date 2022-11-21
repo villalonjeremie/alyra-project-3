@@ -1,6 +1,3 @@
-import Proposals from "./Proposals";
-import Winner from "./Winner";
-
 function Getters({ proposal, proposals, voter, winner }) {
     return (
         <>
@@ -44,9 +41,10 @@ function Getters({ proposal, proposals, voter, winner }) {
               </code>: <></>
           }
           { winner.length !== 0 ?
-            <code>
-              <Winner winner = {winner} />
-            </code>: <></>
+              <code>
+                {` Proposal Winner is : `}
+                      <strong>{winner.description}</strong>
+              </code>:<></>
           }
         </>
       );
