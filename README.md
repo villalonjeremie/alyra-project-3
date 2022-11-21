@@ -1,40 +1,60 @@
-# React Truffle Box
+# Voting Dapp
 
-This box comes with everything you need to start using Truffle to write, compile, test, and deploy smart contracts, and interact with them from a React app.
+For starting Voting Dapp
 
 ## Installation
 
-First ensure you are in an empty directory.
-
-Run the `unbox` command using 1 of 2 ways.
+Run Ganache
 
 ```sh
-# Install Truffle globally and run `truffle unbox`
-$ npm install -g truffle
-$ truffle unbox react
+$ ganache
 ```
 
 ```sh
-# Alternatively, run `truffle unbox` via npx
-$ npx truffle unbox react
+$ git clone https://github.com/villalonjeremie/alyra-project-3.git
+$ cd truffle
+$ npm install
+$ truffle migrate --network development
 ```
+
 
 Start the react dev server.
 
 ```sh
-$ cd client
-$ npm start
-  Starting the development server...
+$ cd ../client
+$ npm install
+$ npm run start
 ```
 
-From there, follow the instructions on the hosted React app. It will walk you through using Truffle and Ganache to deploy the `SimpleStorage` contract, making calls to it, and sending transactions to change the contract's state.
+Browser should be opening
 
-## FAQ
+http://localhost:3000/
 
-- __How do I use this with Ganache (or any other network)?__
+## Using Dapp
 
-  The Truffle project is set to deploy to Ganache by default. If you'd like to change this, it's as easy as modifying the Truffle config file! Check out [our documentation on adding network configurations](https://trufflesuite.com/docs/truffle/reference/configuration/#networks). From there, you can run `truffle migrate` pointed to another network, restart the React dev server, and see the change take place.
+On localhost, connect your wallet with address deployer. Add Voter as you want then click StartRegisterProposal.
 
-- __Where can I find more resources?__
+Connect wallet with address voter, then add proposal.
 
-  This Box is a sweet combo of [Truffle](https://trufflesuite.com) and [Create React App](https://create-react-app.dev). Either one would be a great place to start!
+Connect on address deployer then click on start voting session.
+
+Connect wallet with address voter, then set Vote. 
+
+Connect on address deployer then click on tally vote.
+
+Connect wallet with address voter, then the proposal of winner should be displayed. 
+
+## Deploy and Using Dapp on Testnet Goerli
+
+Create .env 
+Create INFURA_ID on goerli
+
+INFURA_ID = [INFURA_ID]
+MNEMONIC = [PASSPHRASE OF YOUR WALLET]
+
+```sh
+$ cd truffle
+$ truffle migrate --network goerli
+```
+Go to [Dapp Voting](https://alyra-project-3-97latl63z-villalonjeremie.vercel.app/)
+
