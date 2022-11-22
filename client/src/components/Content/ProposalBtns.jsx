@@ -25,7 +25,6 @@ function ProposalBtns({ setAllProposals }) {
           ++i;
           try {
             const proposal = await contract.methods.getOneProposal(i).call({ from: accounts[0] });
-            console.log(proposal);
             proposals.push(proposal);
           } catch (err) {
             error = true;

@@ -10,7 +10,6 @@ function Proposal() {
         await contract.events.ProposalRegistered({fromBlock:"earliest"})
         .on('data', event => {
           const eventId = event.returnValues.proposalId;
-          console.log(event);
           setEventValue(eventId);
         })          
         .on('changed', changed => console.log(changed))

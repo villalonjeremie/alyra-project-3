@@ -41,7 +41,6 @@ function GettersBtns({ setProposal, setAllProposals, setVoter, setWinner }) {
             break;
           }
         }
-        console.log(proposals);
     setAllProposals(proposals);
   };
 

@@ -10,7 +10,6 @@ function ContractBtns({ addingStatus, addCurrentStatus }) {
       await contract.methods.startProposalsRegistering().send({ from: accounts[0] });
       const value = await contract.methods.workflowStatus().call({ from: accounts[0] });
       setCurrentValue(parseInt(value));
-      console.log(parseInt(value));
       addCurrentStatus(parseInt(value));
     } catch(err) {
       const endIndex = err.message.search('error msg')
